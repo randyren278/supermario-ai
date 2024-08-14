@@ -1,12 +1,19 @@
 import os
 import numpy as np
+import cv2  # To display the game screen
 from src.environment.game_environment import GameEnvironment
 from src.agent.agent import Agent
 from src.neural_network.network import build_neural_network
 
+
 EPISODES = 1000
 MODEL_DIR = 'models/'
 LAST_MODEL = None
+
+def display_game_screen(screen):
+    """Displays the current game screen in a window."""
+    cv2.imshow('Super Mario Bros - Training', screen)
+    cv2.waitKey(1)  # Update the screen with a delay of 1ms
 
 if __name__ == "__main__":
     env = GameEnvironment(driver_path='/Users/randyren/Developer/chromedriver-mac-arm64/chromedriver')
@@ -29,13 +36,18 @@ if __name__ == "__main__":
         done = False
         while not done:
             action = agent.act(state)
-            env.press_key(action)  # Adjust mapping for action to key press
+            env.press_key(action)  # Perform the action
+
             next_state = env.get_screenshot()
             next_state = np.reshape(next_state, [1, *state_size])
             reward = 0  # Adjust reward calculation logic
             done = False  # Adjust logic for determining when the episode is done
+
             agent.remember(state, action, reward, next_state, done)
             state = next_state
+
+            # Display the current game screen
+            display_game_screen(state[0])
 
             if done:
                 print(f"Episode: {e}/{EPISODES}, score: {reward}")
@@ -48,3 +60,4 @@ if __name__ == "__main__":
             agent.save(f"{MODEL_DIR}super_mario_{e}.h5")
 
     env.close()
+    cv2.destroyAllWindows()
