@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 class GameEnvironment:
-    def __init__(self, driver_path):
+    def __init__(self, driver_path='/Users/randyren/Developer/chromedriver-mac-arm64/chromedriver'):
         self.driver_path = driver_path
         self.driver = webdriver.Chrome(executable_path=self.driver_path)
         self.driver.get('https://jcw87.github.io/c2-smb1/')
@@ -26,7 +26,7 @@ class GameEnvironment:
 
 # Example of usage
 if __name__ == "__main__":
-    env = GameEnvironment(driver_path='/path/to/chromedriver')
+    env = GameEnvironment()
     env.press_key(Keys.ARROW_RIGHT)  # Example of pressing the right arrow key
     time.sleep(2)
     screenshot = env.get_screenshot()

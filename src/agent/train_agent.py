@@ -9,7 +9,7 @@ MODEL_DIR = 'models/'
 LAST_MODEL = None
 
 if __name__ == "__main__":
-    env = GameEnvironment(driver_path='/path/to/chromedriver')
+    env = GameEnvironment(driver_path='/Users/randyren/Developer/chromedriver-mac-arm64/chromedriver')
     state_size = (84, 84, 4)  # Example state size, adjust accordingly
     action_space = 3  # Example action space, adjust accordingly
     agent = Agent(action_space, state_size)
