@@ -1,0 +1,4 @@
+selenium
+numpy
+tensorflow  # or keras if you're using it directly
+opencv-python
